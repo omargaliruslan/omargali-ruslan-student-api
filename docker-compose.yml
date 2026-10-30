@@ -1,0 +1,43 @@
+name: omargali-ruslan-student-api
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: omargali-ruslan-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-studentdb}
+      POSTGRES_USER: ${POSTGRES_USER:-student}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+    volumes:
+      - omargali-ruslan-pgdata:/var/lib/postgresql/data
+    networks:
+      - omargali-ruslan-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    image: omargali-ruslan-student-api:${APP_TAG:-v1.0-omargali-ruslan-37858}
+    container_name: omargali-ruslan-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-studentdb}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-student}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - omargali-ruslan-net
+    restart: unless-stopped
+
+volumes:
+  omargali-ruslan-pgdata:
+
+networks:
+  omargali-ruslan-net:
+    driver: bridge
