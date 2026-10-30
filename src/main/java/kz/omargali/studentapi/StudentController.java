@@ -25,10 +25,6 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getAll() {
-   @GetMapping("/search")
-    public List<Student> searchByLastName(@RequestParam String lastName) {
-        return repository.findByLastNameContainingIgnoreCase(lastName);
-    }
         return repository.findAll();
     }
 
