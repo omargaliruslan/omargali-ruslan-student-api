@@ -26,3 +26,4 @@ curl http://localhost:8080/api/info
 | PUT | /api/students/{id} | Update student |
 | DELETE | /api/students/{id} | Delete student |
 | GET | /api/students/search?lastName=... | Search by last name |
+Jenkins auto-build check by Ruslan Omargali
