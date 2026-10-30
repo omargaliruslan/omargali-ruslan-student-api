@@ -4,7 +4,7 @@ Spring Boot CRUD API for students — DevOps midterm project.
 
 Author: Ruslan Omargali (ID 37858)
 
-Status: in development
+Status: documentation reviewed by Ruslan Omargali
 
 ## Stack
 Java 17, Spring Boot 3, Gradle, PostgreSQL 16, Docker Compose, Jenkins.
